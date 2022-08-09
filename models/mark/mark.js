@@ -1,7 +1,10 @@
 const { DataTypes } = require('sequelize')
 const db = require('../../database/connection')
 
-const Mark = db.define('category', {
+const Mark = db.define('mark', {
+    mark_id: {
+        type: DataTypes.INTEGER
+    },
     business_id: {
         type: DataTypes.INTEGER
     },
@@ -12,5 +15,7 @@ const Mark = db.define('category', {
         type: DataTypes.BOOLEAN
     }
 })
+
+Mark.removeAttribute('id')
 
 module.exports = Mark

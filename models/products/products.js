@@ -2,6 +2,9 @@ const { DataTypes } = require('sequelize')
 const db = require('../../database/connection')
 
 const Products = db.define('products', {
+    product_id: {
+        type: DataTypes.INTEGER
+    },
     uid: {
         type: DataTypes.STRING
     },
@@ -39,5 +42,7 @@ const Products = db.define('products', {
         type: DataTypes.BOOLEAN
     }
 })
+
+Products.removeAttribute('id')
 
 module.exports = Products

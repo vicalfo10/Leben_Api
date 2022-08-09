@@ -1,8 +1,8 @@
 const { Router } = require('express')
 const { getProducts,
-    postProducts,
-    putProducts,
-    deleteProducts } = require('../../controllers/products/products')
+        postProducts,
+        putProducts,
+        deleteProducts } = require('../../controllers/products/products')
 
 const router = Router()
 

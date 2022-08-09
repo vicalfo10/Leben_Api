@@ -2,6 +2,9 @@ const { DataTypes } = require('sequelize')
 const db = require('../../database/connection')
 
 const Category = db.define('category', {
+    category_id: {
+        type: DataTypes.INTEGER
+    },
     department_id: {
         type: DataTypes.INTEGER
     },
@@ -12,5 +15,7 @@ const Category = db.define('category', {
         type: DataTypes.BOOLEAN
     }
 })
+
+Category.removeAttribute('id')
 
 module.exports = Category
