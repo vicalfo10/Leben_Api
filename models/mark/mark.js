@@ -3,7 +3,8 @@ const db = require('../../database/connection')
 
 const Mark = db.define('mark', {
     mark_id: {
-        type: DataTypes.INTEGER
+        type: DataTypes.INTEGER,
+        primaryKey: true
     },
     business_id: {
         type: DataTypes.INTEGER

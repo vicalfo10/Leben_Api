@@ -3,7 +3,8 @@ const db = require('../../database/connection')
 
 const Business = db.define('business', {
     business_id: {
-        type: DataTypes.INTEGER
+        type: DataTypes.INTEGER,
+        primaryKey: true
     },
     uid: {
         type: DataTypes.STRING

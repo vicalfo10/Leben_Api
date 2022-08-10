@@ -3,7 +3,8 @@ const db = require('../../database/connection')
 
 const Instruction = db.define('instruction', {
     instruction_id: {
-        type: DataTypes.INTEGER
+        type: DataTypes.INTEGER,
+        primaryKey: true
     },
     name: {
         type: DataTypes.STRING

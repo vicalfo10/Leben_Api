@@ -3,7 +3,8 @@ const db = require('../../database/connection')
 
 const Prod_x_Instr = db.define('product_x_instruction', {
     prin_id: {
-        type: DataTypes.INTEGER
+        type: DataTypes.INTEGER,
+        primaryKey: true
     },
     product_id: {
         type: DataTypes.INTEGER

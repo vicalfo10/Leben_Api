@@ -3,7 +3,8 @@ const db = require('../../database/connection')
 
 const Department = db.define('department', {
     department_id: {
-        type: DataTypes.INTEGER
+        type: DataTypes.INTEGER,
+        primaryKey: true
     },
     business_id: {
         type: DataTypes.INTEGER

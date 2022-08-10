@@ -1,9 +1,9 @@
-const {  request, response } = require('express')
+const {  Request, Response } = require('express')
 const { v4: uuidv4 } = require('uuid')
 
 const Product = require('../../models/products/products')
 
-const getProducts = async( req = request, res = response ) => {
+const getProducts = async( req = Request, res = Response ) => {
 
     try {
 
@@ -30,7 +30,7 @@ const getProducts = async( req = request, res = response ) => {
 
 }
 
-const postProducts = async( req = request, res = response ) => {
+const postProducts = async( req = Request, res = Response ) => {
 
     const { body } = req
 
@@ -69,12 +69,52 @@ const postProducts = async( req = request, res = response ) => {
 
 }
 
-const putProducts = async( req = request, res = response ) => {
+const putProducts = async( req = Request, res = Response ) => {
+
+    const { uuid } = req.query
+    const { body } = req
 
     try {
 
-        res.json({
-            msg: 'putProducts'
+        const existBarcode = await Product.findOne({
+            where: {
+                barcode: body.barcode
+            }
+        })
+
+        if (existBarcode) {
+            return res.status(400).json({
+                msg: `Código de barras ${body.barcode} ya registrado`
+            })
+        }
+
+        const products = await Product.findOne({
+            where: {
+                uid: uuid
+            }
+        })
+        
+        if ( !products ) {
+            return res.status(404).json({
+                msg: `No existe el producto con el identificador ${ uuid }`
+            })
+        }
+
+        await products.update({ category_id:    body.category_id, 
+                                name:           body.name,
+                                barcode:        body.barcode,
+                                reference:      body.reference,
+                                price:          body.price,
+                                img:            body.img,
+                                stock:          body.stock,
+                                html_url:       body.html_url,
+                                state:          body.state
+                             })
+
+        res.status(200).json({
+            body: {
+                products
+            }
         })
         
     } catch (error) {
@@ -87,12 +127,30 @@ const putProducts = async( req = request, res = response ) => {
 
 }
 
-const deleteProducts = async( req = request, res = response ) => {
+const deleteProducts = async( req = Request, res = Response ) => {
+
+    const { uuid } = req.query
 
     try {
 
+        const products = await Product.findOne({
+            where: {
+                uid: uuid
+            }
+        })
+        
+        if ( !products ) {
+            return res.status(404).json({
+                msg: `No existe el producto con el identificador ${ uuid }`
+            })
+        }
+
+        await products.update({ state: false })
+
         res.json({
-            msg: 'deleteProducts'
+            body: {
+                products
+            }
         })
         
     } catch (error) {

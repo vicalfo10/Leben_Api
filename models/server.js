@@ -10,7 +10,7 @@ class Server {
         this.port = process.env.PORT
 
         this.paths = {
-            products: '/api/leben/products'
+            products: `${process.env.PATH_URL}/${process.env.STAGE}`
         }
 
         this.dbConnection()
